@@ -14,8 +14,7 @@ const makerPage = (req, res) => {
 };
 
 const makeRecipe = (req, res) => {
-
-  console.dir('here')
+  console.dir('here');
   if (!req.body.name || !req.body.serves || !req.body.ingredients || !req.body.instruction) {
     return res.status(400).json({ error: 'all fields required' });
   }
