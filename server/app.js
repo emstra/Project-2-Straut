@@ -14,13 +14,6 @@ const url = require('url');
 const csrf = require('csurf');
 const redis = require('redis');
 
-// mongoose.connect(dbURL, mongooseOptions, (err) =>{
-//   if(err)
-//   {
-//   console.log('could not connect to Database');
-//   throw err;
-//   }
-// });
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -75,7 +68,7 @@ app.use(session({
   store: new RedisStore({
     client: redisClient,
   }),
-  secret: 'Domo Arigato',
+  secret: 'somo, More Like No-Mo, because I had to remove all the references',
   resave: true,
   saveUninitialized: true,
   cookie: {

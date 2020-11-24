@@ -1,91 +1,96 @@
-const handleDomo =(e)=>{
+const handleRecipe =(e)=>{
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'}, 350);
+    $("#recipeMessage").animate({height:'hide'}, 350);
 
-    if($("#domoName").val() == '' || $("#domoAge").val() == ''){
-        handleError("RAWR! All fields required");
+    if($("#nameField").val() == '' || $("#servesField").val() == ''|| $("#ingredientField").val() == ''|| $("#instructionField").val() == ''){
+        handleError("Please fill in all fields.");
+        console.log("err: not all data present");
         return false;
     }
 
-    sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function(){
-        loadDomosFromServer();
+    sendAjax('POST', $("#recipeForm").attr("action"), $("#recipeForm").serialize(), function(){
+        loadRecipesFromServer();
     });
 
     return false;
 }
 
-const DomoForm = (props) =>{
+const RecipeForm = (props) =>{
     return(
-        <form id="domoForm"
-        onSubmit={handleDomo}
-        name="domoForm"
+        <div>
+        <h3>Have a Recipe? Submit it!</h3>
+        
+        <form id="recipeForm"
+        onSubmit={handleRecipe}
+        name="recipeForm"
         action="/maker"
         method="POST"
-        className="domoForm"
+        className="recipeForm"
         >
-            <label htmlFor="name">Name: </label>
-            <input id='domoName' type='text' name='name' placeholder='Domo Name' />
+            <label htmlFor="name" className="formTxt">Recipe Name: </label>
+            <input id="nameField" type="text" name="name" className="formItem" placeholder="Recipe Name"/>
 
-            <label htmlFor="age">Age: </label>
-            <input id='domoAge' type='text' name='age' placeholder='Domo Age' />
+            <label htmlFor="serves" className="formTxt">Serves: </label>
+            <input id="servesField" type="number" name="serves" min="0" max="100" step="1" className="formItem" />
 
-            <label htmlFor="teeth">Teeth: </label>
-            <input id='domoTeeth' type='text' name='teeth' placeholder='Domo Teeth' />
+            <label htmlFor="ingredients" className="formTxt">Ingredients: </label>
+            <textarea id="ingredientField" name="ingredients" rows='15' col='50' className="formItem"></textarea>
 
+            <label htmlFor="instructions" className="formTxt">Instructions: </label>
+            <textarea id="instructionField" name="instruction" rows='15' col='50' className="formItem"></textarea>
 
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className="makeDomoSubmit" type="submit" value="Make Domo" />
+            <input type="submit" value="Make Recipe" className="formItem"/>
 
         </form>
+        </div>
     );
 }
 
-const DomoList = function(props){
+const RecipeList = function(props){
 
-    if(props.domos.length === 0){
+    if(props.recipes.length === 0){
         return(
-            <div className="domoList">
-                <h3 className="emptyDomo" >No Domos yet</h3>
+            <div className="recipeList">
+                <h3 className="emptyRecipe" >No Recipes yet</h3>
             </div>
         );
     }
 
-    const domoNodes = props.domos.map(function(domo){
+    const recipeNodes = props.recipes.map(function(recipe){
         return(
-            <div key={domo._id} className="domo">
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className="domoFace" />
-                <h3 className="domoName">Name: {domo.name} </h3>
-                <h3 className="domoAge">Age: {domo.age} </h3>
-                <h3 className="domoTeeth">Teeth: {domo.teeth} </h3>
+            <div key={recipe._id} className="recipe">
+                <h3>Name: {recipe.name} </h3>
+                <h3>Serves: {recipe.serves} </h3>
+                <h3>Ingredients: {recipe.ingredients} </h3>
+                <h3>Instructions: {recipe.instructions} </h3>
             </div>
         );
     });
 
     return (
-    <div className="domoList">
-        {domoNodes}
+    <div className="recipeList">
+        {recipeNodes}
     </div>
     );
 };
 
-const loadDomosFromServer =()=> {
-    sendAjax('GET', '/getDomos', null, (data) =>{
+const loadRecipesFromServer =()=> {
+    sendAjax('GET', '/getRecipes', null, (data) =>{
+        //console.log(data.recipes);
         ReactDOM.render(
-        <DomoList domos={data.domos} />, document.querySelector('#domos')
+        <RecipeList recipes={data.recipes} />, document.querySelector('#recipes')
         );
     });
 }
 
 const setup = function(csrf){
     ReactDOM.render(
-        <DomoForm csrf={csrf} />, document.querySelector('#makeDomo')
-    );
-    ReactDOM.render(
-        <DomoList domos={[]} />, document.querySelector('#domos')
+        <RecipeForm csrf={csrf} />, document.querySelector('#makeRecipe')
     );
 
-    loadDomosFromServer();
+    loadRecipesFromServer();
 }
 
 const getToken =() =>{

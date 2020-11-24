@@ -2,7 +2,7 @@
 
 var handleLogin = function handleLogin(e) {
   e.preventDefault();
-  $('#domoMessage').animate({
+  $('#recipeMessage').animate({
     width: "hide"
   }, 350);
 
@@ -17,8 +17,8 @@ var handleLogin = function handleLogin(e) {
 
 var handleSignup = function handleSignup(e) {
   e.preventDefault();
-  $('#domoMessage').animate({
-    width: "hide"
+  $('#recipeMessage').animate({
+    height: "hide"
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
@@ -145,14 +145,14 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
-    width: 'toggle'
+  $("#recipeMessage").animate({
+    height: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
-    width: 'hide'
+  $("#recipeMessage").animate({
+    height: 'hide'
   }, 350);
   window.location = response.redirect;
 };
