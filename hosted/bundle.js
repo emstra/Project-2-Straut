@@ -81,7 +81,7 @@ var RecipeList = function RecipeList(props) {
       className: "recipeList"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptyRecipe"
-    }, "No Recipes yet"));
+    }, "You haven't uploaded any recipies."));
   }
 
   var recipeNodes = props.recipes.map(function (recipe) {

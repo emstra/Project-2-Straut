@@ -53,7 +53,7 @@ const RecipeList = function(props){
     if(props.recipes.length === 0){
         return(
             <div className="recipeList">
-                <h3 className="emptyRecipe" >No Recipes yet</h3>
+                <h3 className="emptyRecipe" >You haven't uploaded any recipies.</h3>
             </div>
         );
     }
