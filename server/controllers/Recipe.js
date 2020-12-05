@@ -3,6 +3,8 @@ const models = require('../models');
 const { Recipe } = models;
 
 const makerPage = (req, res) => {
+  // returns the maker page, plus all the recipe docs
+
   Recipe.RecipeModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
@@ -13,7 +15,20 @@ const makerPage = (req, res) => {
   });
 };
 
+const searchPage = (req, res) => {
+  //render the search page
+  Recipe.RecipeModel.findAll((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.render('search', { recipes: docs });
+  });
+};
+
 const makeRecipe = (req, res) => {
+  //Makes a recipe
   console.dir('here');
   if (!req.body.name || !req.body.serves || !req.body.ingredients || !req.body.instruction) {
     return res.status(400).json({ error: 'all fields required' });
@@ -45,7 +60,9 @@ const makeRecipe = (req, res) => {
   return recipePromise;
 };
 
+
 const getRecipes = (request, response) => {
+  // gets recipes by owner
   const req = request;
   const res = response;
 
@@ -59,6 +76,24 @@ const getRecipes = (request, response) => {
   });
 };
 
+const getAll = (request, response)=>{
+  //gets all recipes regardless of owner
+  const res = response;
+
+  return Recipe.RecipeModel.findAll((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.json({ recipes: docs });
+  });
+
+
+}
+
 module.exports.makerPage = makerPage;
+module.exports.searchPage = searchPage;
 module.exports.getRecipes = getRecipes;
 module.exports.make = makeRecipe;
+module.exports.getAll = getAll;

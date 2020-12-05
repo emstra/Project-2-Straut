@@ -12,57 +12,25 @@ var handleRecipe = function handleRecipe(e) {
     return false;
   }
 
-  sendAjax('POST', $("#recipeForm").attr("action"), $("#recipeForm").serialize(), function () {
+  sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function () {
     loadRecipesFromServer();
   });
-  document.querySelector("#recipeForm").reset();
+  document.querySelector("#searchForm").reset();
   return false;
 };
 
-var RecipeForm = function RecipeForm(props) {
+var SearchForm = function SearchForm(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Have a Recipe? Submit it!"), /*#__PURE__*/React.createElement("form", {
-    id: "recipeForm",
-    onSubmit: handleRecipe,
-    name: "recipeForm",
-    action: "/maker",
+    id: "searchForm" //onSubmit={handleRecipe}
+    ,
+    name: "searchForm" //action="/maker"
+    ,
     method: "POST",
-    className: "recipeForm"
-  }, /*#__PURE__*/React.createElement("label", {
-    htmlFor: "name",
-    className: "formTxt"
-  }, "Recipe Name: "), /*#__PURE__*/React.createElement("input", {
-    id: "nameField",
+    className: "searchForm"
+  }, /*#__PURE__*/React.createElement("input", {
+    id: "searchField",
     type: "text",
-    name: "name",
-    className: "formItem"
-  }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "serves",
-    className: "formTxt"
-  }, "Serves: "), /*#__PURE__*/React.createElement("input", {
-    id: "servesField",
-    type: "number",
-    name: "serves",
-    min: "0",
-    max: "100",
-    step: "1",
-    className: "formItem"
-  }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "ingredients",
-    className: "formTxt"
-  }, "Ingredients: "), /*#__PURE__*/React.createElement("textarea", {
-    id: "ingredientField",
-    name: "ingredients",
-    rows: "15",
-    col: "50",
-    className: "formItem"
-  }), /*#__PURE__*/React.createElement("label", {
-    htmlFor: "instructions",
-    className: "formTxt"
-  }, "Instructions: "), /*#__PURE__*/React.createElement("textarea", {
-    id: "instructionField",
-    name: "instruction",
-    rows: "15",
-    col: "50",
+    name: "search",
     className: "formItem"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
@@ -70,7 +38,7 @@ var RecipeForm = function RecipeForm(props) {
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
     type: "submit",
-    value: "Make Recipe",
+    value: "Search",
     className: "formButton"
   })));
 };
@@ -82,28 +50,7 @@ var RecipeList = function RecipeList(props) {
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptyRecipe"
     }, "You haven't uploaded any recipies."));
-  } // old method of adding recipes, not used anymore
-  // const recipeNodes = props.recipes.map(function(recipe){
-  //     return(
-  //         <div key={recipe._id} className="recipe">
-  //             {/* <h3>Name: {recipe.name} </h3>
-  //             <h3>Serves: {recipe.serves} </h3>
-  //             <h3>Ingredients: {recipe.ingredients} </h3>
-  //             <h3>Instructions: {recipe.instructions} </h3> */}
-  //             <button className="RecipeBox">
-  //                 <h4>{recipe.name}</h4>
-  //                 <p><b>Serves:</b>{recipe.serves}</p>
-  //                 <hr />
-  //                 <p><b>Ingredients</b></p>
-  //                 <p>{recipe.ingredients}</p>
-  //                 <hr />
-  //                 <p><b>Instructions</b></p>
-  //                 <p>{recipe.instructions}</p>
-  //             </button>
-  //         </div>
-  //     );
-  // });
-
+  }
 
   var recipeHolder = []; //holds 3 recipes to let them all be added at once
 
@@ -135,7 +82,8 @@ var RecipeList = function RecipeList(props) {
 };
 
 var loadRecipesFromServer = function loadRecipesFromServer() {
-  sendAjax('GET', '/getRecipes', null, function (data) {
+  // get all the recipes when the page loads
+  sendAjax('GET', '/allRecipes', null, function (data) {
     //console.log(data.recipes);
     ReactDOM.render( /*#__PURE__*/React.createElement(RecipeList, {
       recipes: data.recipes
@@ -144,9 +92,10 @@ var loadRecipesFromServer = function loadRecipesFromServer() {
 };
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(RecipeForm, {
+  // gets called when the page is set up
+  ReactDOM.render( /*#__PURE__*/React.createElement(SearchForm, {
     csrf: csrf
-  }), document.querySelector('#makeRecipe'));
+  }), document.querySelector('#search'));
   loadRecipesFromServer();
 };
 

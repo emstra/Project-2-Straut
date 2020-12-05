@@ -19,15 +19,15 @@
     <h3><span id="errorMessage">Wrong username or password</span></h3>
   </div>
 
-    <nav><a href="/logout"></a>
+  <nav><a href="/logout"></a>
     <div class="navlink"><a id="loginButton" href="/logout">Logout</a></div>
-    </nav>
+  </nav>
 
   <section id="top">
     <h3 id="pgTitle">Recipe Book</h3>
 
     <form id="searchForm" action="/getUsers" method="get">
-      <input id="searchBar" type="text" size="20" maxlenght="20" placeholder="Search Here">
+      <input id="searchBar" type="text" size="20" maxlength="20" placeholder="Search Here">
       <input type="submit" class="button" value="Search" />
       <button type="button" class="button" id="GetAll">Get All</button>
     </form>
@@ -41,8 +41,12 @@
     <div id="recipes"></div>
   </section>
   <hr>
-  <section id="makeRecipe">
-  </section>
+  <div id="sideBySide">
+    <section id="makeRecipe">
+    </section>
+    <section id="recipeContentvert">
+    </section>
+  </div>
 
   <script src="/assets/bundle.js"></script>
 </body>

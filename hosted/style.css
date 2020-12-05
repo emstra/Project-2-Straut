@@ -1,13 +1,50 @@
 
 
-html, body {
+html, body 
+{
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #ECECEC;
+    background-color: #e2e2e2;
     font-family: 'Assistant', sans-serif;
-  }
+}
+
+  
+nav 
+{
+    width: 100%;
+    height: 50px;
+    background-color: darkgray;
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 5px;
+    padding-top: 12px;
+    padding-left: 20px;
+    color: white;
+    font-size: 1.3em;
+    float: left;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: darkgray;
+    transition: background-color 0.4s ease;
+}
+
+.navlink a:hover {
+    transition: background-color 0.8s ease;
+    background-color: lightgray;
+}
+
   
   #top {
   margin : 1%
@@ -16,6 +53,7 @@ html, body {
   
   #top h1 {
     font-size: 2em;
+    text-align: center;
   }
   
   #content {
@@ -35,19 +73,34 @@ html, body {
     width: 50%;
   }
   
-  .RecipeBox
-  {
-    width: 15%;
-    border: 2px solid black;
-    background-color: #ECECEC;
-    border-radius: 1em;
-    margin-top: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 0.25em;
-    padding-bottom: 0.25em;
-  }
-  
+.RecipeBox
+{
+  width: 15em;
+  background-color: #ecebeb;
+  border-radius: 1em;
+  margin-top: 1em;
+  margin: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 25em;
+  text-align: left;
+  transition-duration: 0.4s;
+}
+
+h4
+{
+  text-align: center;
+}
+
+button.RecipeBox:hover
+{
+  background-color: white;
+}
+
   #recipeContentvert
   {
     display: flex;
@@ -72,14 +125,15 @@ html, body {
   .formItem
   {
     margin-bottom: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    width: 15%;
+    width: 100%;
+    border: none;
+    resize: none;
   }
   
   h3
   {
     font-family: 'Sansita Swashed', cursive;
+    text-align: center;
   }
   
   h4
@@ -90,7 +144,7 @@ html, body {
   
   .button
   {
-    background-color: #90ccf4;
+    background-color: #4888b3;
     border: none;
     color: white;
     padding: 10px 15px;
@@ -100,6 +154,8 @@ html, body {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    border-radius: 4px;
+    transition-duration: .4s;
   }
   
   .button:hover
@@ -117,19 +173,20 @@ html, body {
 #recipeMessage {
     display:none;
     margin: auto;
-    width: 80%;
+    width: 85%;
     height: 50px;
-    position: sticky;
+    position: fixed;
     z-index: 200;
-    /*right: 0px;*/
+    right: 0px;
     overflow: hidden;
 }
 
 #recipeMessage h3 {
-    width: 80%;
-    /*position: absolute;*/
-    top: 0px;
-    left: 20px;
+  width: 85%;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform:translate(-25%, 0%);
 }
 
 #speech {
@@ -139,10 +196,37 @@ html, body {
 }
 
 #errorMessage {
-    font-size: 1.2em;
-    font-weight: bold;
-    /*position: absolute;*/
+    font-size: 1em;
     color: lightGray;
+    text-align: center;
     margin: auto;
+    text-emphasis: none;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.formButton
+{
+  background-color: #4888b3;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition-duration: .4s;
+  width: 14em;
+}
+
+.formButton:hover
+{
+  background-color: #5DA2D5;
+}
+
+#sideBySide{
+  display:flex;
+  justify-content: space-around;
 }

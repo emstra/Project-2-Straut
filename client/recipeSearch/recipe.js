@@ -9,41 +9,31 @@ const handleRecipe =(e)=>{
         return false;
     }
 
-    sendAjax('POST', $("#recipeForm").attr("action"), $("#recipeForm").serialize(), function(){
+    sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function(){
         loadRecipesFromServer();
     });
 
-    document.querySelector("#recipeForm").reset();
+    document.querySelector("#searchForm").reset();
 
     return false;
 }
 
-const RecipeForm = (props) =>{
+const SearchForm = (props) =>{
     return(
         <div>
         <h3>Have a Recipe? Submit it!</h3>
         
-        <form id="recipeForm"
-        onSubmit={handleRecipe}
-        name="recipeForm"
-        action="/maker"
+        <form id="searchForm"
+        //onSubmit={handleRecipe}
+        name="searchForm"
+        //action="/maker"
         method="POST"
-        className="recipeForm"
+        className="searchForm"
         >
-            <label htmlFor="name" className="formTxt">Recipe Name: </label>
-            <input id="nameField" type="text" name="name" className="formItem"/>
-
-            <label htmlFor="serves" className="formTxt">Serves: </label>
-            <input id="servesField" type="number" name="serves" min="0" max="100" step="1" className="formItem"/>
-
-            <label htmlFor="ingredients" className="formTxt">Ingredients: </label>
-            <textarea id="ingredientField" name="ingredients" rows='15' col='50' className="formItem"></textarea>
-
-            <label htmlFor="instructions" className="formTxt">Instructions: </label>
-            <textarea id="instructionField" name="instruction" rows='15' col='50' className="formItem"></textarea>
+            <input id="searchField" type="text" name="search" className="formItem"/>
 
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input type="submit" value="Make Recipe" className="formButton"/>
+            <input type="submit" value="Search" className="formButton"/>
 
         </form>
         </div>
@@ -60,33 +50,7 @@ const RecipeList = function(props){
                 <h3 className="emptyRecipe" >You haven't uploaded any recipies.</h3>
             </div>
         );
-    }
-
-    // old method of adding recipes, not used anymore
-    // const recipeNodes = props.recipes.map(function(recipe){
-    //     return(
-    //         <div key={recipe._id} className="recipe">
-    //             {/* <h3>Name: {recipe.name} </h3>
-    //             <h3>Serves: {recipe.serves} </h3>
-    //             <h3>Ingredients: {recipe.ingredients} </h3>
-    //             <h3>Instructions: {recipe.instructions} </h3> */}
-
-    //             <button className="RecipeBox">
-    //                 <h4>{recipe.name}</h4>
-    //                 <p><b>Serves:</b>{recipe.serves}</p>
-    //                 <hr />
-    //                 <p><b>Ingredients</b></p>
-    //                 <p>{recipe.ingredients}</p>
-    //                 <hr />
-    //                 <p><b>Instructions</b></p>
-    //                 <p>{recipe.instructions}</p>
-    //             </button>
-    //         </div>
-    //     );
-    // });
-
-     
-
+    }  
 
     let recipeHolder = []; //holds 3 recipes to let them all be added at once
     let recipeNodes = []; // Holds all recipes
@@ -128,7 +92,8 @@ const RecipeList = function(props){
 };
 
 const loadRecipesFromServer =()=> {
-    sendAjax('GET', '/getRecipes', null, (data) =>{
+    // get all the recipes when the page loads
+    sendAjax('GET', '/allRecipes', null, (data) =>{
         //console.log(data.recipes);
         ReactDOM.render(
         <RecipeList recipes={data.recipes} />, document.querySelector('#recipeContentvert')
@@ -137,8 +102,9 @@ const loadRecipesFromServer =()=> {
 }
 
 const setup = function(csrf){
+    // gets called when the page is set up
     ReactDOM.render(
-        <RecipeForm csrf={csrf} />, document.querySelector('#makeRecipe')
+        <SearchForm csrf={csrf} />, document.querySelector('#search')
     );
 
     loadRecipesFromServer();

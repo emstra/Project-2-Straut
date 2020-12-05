@@ -11,10 +11,13 @@ const router = (app) => {
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
+  app.get('/search', mid.requiresSecure, controllers.Recipe.searchPage);
+  
 
   // app.get('/users', mid.requiresLogin, controllers.Account.usersPage);
   // app.get('/getUsers', mid.requiresLogin, controllers.Account.showUsers);
 
+  app.get('/allRecipes', controllers.Recipe.getAll);
   app.get('/maker', mid.requiresLogin, controllers.Recipe.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Recipe.make);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
