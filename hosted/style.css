@@ -282,3 +282,24 @@ button.RecipeBox:hover
   border: 1px solid black;
   resize: none;
 }
+
+#leftAd{
+  height: 70%;
+  width: 80px;
+  position: fixed;
+  z-index: 1;
+  top: 30;
+  margin: 2em;
+  padding-top: 20px;
+}
+
+#rightAd{
+  height: 70%;
+  width: 80px;
+  position: fixed;
+  z-index: 1;
+  left: 90%;
+  top: 30;
+  margin: 2em;
+  padding-top: 20px;
+}
