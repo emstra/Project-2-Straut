@@ -62,28 +62,6 @@ const RecipeList = function(props){
         );
     }
 
-    // old method of adding recipes, not used anymore
-    // const recipeNodes = props.recipes.map(function(recipe){
-    //     return(
-    //         <div key={recipe._id} className="recipe">
-    //             {/* <h3>Name: {recipe.name} </h3>
-    //             <h3>Serves: {recipe.serves} </h3>
-    //             <h3>Ingredients: {recipe.ingredients} </h3>
-    //             <h3>Instructions: {recipe.instructions} </h3> */}
-
-    //             <button className="RecipeBox">
-    //                 <h4>{recipe.name}</h4>
-    //                 <p><b>Serves:</b>{recipe.serves}</p>
-    //                 <hr />
-    //                 <p><b>Ingredients</b></p>
-    //                 <p>{recipe.ingredients}</p>
-    //                 <hr />
-    //                 <p><b>Instructions</b></p>
-    //                 <p>{recipe.instructions}</p>
-    //             </button>
-    //         </div>
-    //     );
-    // });
 
      
 

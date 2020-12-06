@@ -35,15 +35,17 @@ const LoginWindow = (props) =>{
         <form id="loginForm" name="loginForm"
             onSubmit = {handleLogin}
             action = "/login"
-            method="POST"
-            className="mainForm"
+            method = "POST"
+            className = "mainForm"
         >
         <label htmlFor="username">Username: </label>
-        <input id="user" type="text" name="username" placeholder="username"/>
+        <input id="user" type="text" name="username" placeholder="username" className="vertItem"/>
+
         <label htmlFor="pass">Password: </label>
-        <input id="pass" type="password" name="pass" placeholder="password"/>
+        <input id="pass" type="password" name="pass" placeholder="password" className="vertItem"/>
+
         <input type="hidden" name="_csrf" value={props.csrf}/>
-        <input className="formSubmit" type="submit" value="Sign in"/>
+        <input className="vertButton" type="submit" value="Sign in"/>
 
         </form>
     );
@@ -58,13 +60,13 @@ const SignupWindow = (props) =>{
             className="mainForm"
         >
         <label htmlFor="username">Username: </label>
-        <input id="user" type="text" name="username" placeholder="username"/>
+        <input id="user" type="text" name="username" placeholder="username" className="vertItem"/>
         <label htmlFor="pass">Password: </label>
-        <input id="pass" type="password" name="pass" placeholder="password"/>
-        <label htmlFor="pass">Password2: </label>
-        <input id="pass2" type="password" name="pass2" placeholder="retype password"/>
+        <input id="pass" type="password" name="pass" placeholder="password" className="vertItem"/>
+        <label htmlFor="pass">Confirm Password: </label>
+        <input id="pass2" type="password" name="pass2" placeholder="retype password" className="vertItem"/>
         <input type="hidden" name="_csrf" value={props.csrf}/>
-        <input className="formSubmit" type="submit" value="Sign in"/>
+        <input className="vertButton" type="submit" value="Sign in"/>
 
         </form>
     );

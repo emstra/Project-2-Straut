@@ -44,20 +44,22 @@ var LoginWindow = function LoginWindow(props) {
     id: "user",
     type: "text",
     name: "username",
-    placeholder: "username"
+    placeholder: "username",
+    className: "vertItem"
   }), /*#__PURE__*/React.createElement("label", {
     htmlFor: "pass"
   }, "Password: "), /*#__PURE__*/React.createElement("input", {
     id: "pass",
     type: "password",
     name: "pass",
-    placeholder: "password"
+    placeholder: "password",
+    className: "vertItem"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
-    className: "formSubmit",
+    className: "vertButton",
     type: "submit",
     value: "Sign in"
   }));
@@ -77,27 +79,30 @@ var SignupWindow = function SignupWindow(props) {
     id: "user",
     type: "text",
     name: "username",
-    placeholder: "username"
+    placeholder: "username",
+    className: "vertItem"
   }), /*#__PURE__*/React.createElement("label", {
     htmlFor: "pass"
   }, "Password: "), /*#__PURE__*/React.createElement("input", {
     id: "pass",
     type: "password",
     name: "pass",
-    placeholder: "password"
+    placeholder: "password",
+    className: "vertItem"
   }), /*#__PURE__*/React.createElement("label", {
     htmlFor: "pass"
-  }, "Password2: "), /*#__PURE__*/React.createElement("input", {
+  }, "Confirm Password: "), /*#__PURE__*/React.createElement("input", {
     id: "pass2",
     type: "password",
     name: "pass2",
-    placeholder: "retype password"
+    placeholder: "retype password",
+    className: "vertItem"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
-    className: "formSubmit",
+    className: "vertButton",
     type: "submit",
     value: "Sign in"
   }));

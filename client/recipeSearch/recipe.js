@@ -1,33 +1,40 @@
-const handleRecipe =(e)=>{
+const handleSearch = (e) => {
     e.preventDefault();
 
-    $("#recipeMessage").animate({height:'hide'}, 350);
+    //$("#recipeMessage").animate({ height: 'hide' }, 350);
 
-    if($("#nameField").val() == '' || $("#servesField").val() == ''|| $("#ingredientField").val() == ''|| $("#instructionField").val() == ''){
-        handleError("Please fill in all fields.");
-        console.log("err: not all data present");
+    //console.log('here');
+
+    if ($("#searchField").val() == '') {
+        // get all recipes if search bar is empty
+        loadRecipesFromServer();
+
         return false;
     }
 
-    sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function(){
-        loadRecipesFromServer();
+
+    // get all the recipes when the page loads
+    sendAjax('GET', '/bySearch', $("#searchForm").serialize(), (data) => {
+        //console.log(data.recipes);
+        ReactDOM.render(
+            <RecipeList recipes={data.recipes} />, document.querySelector('#recipeContentvert')
+        );
     });
 
     document.querySelector("#searchForm").reset();
 
     return false;
+
 }
 
 const SearchForm = (props) =>{
     return(
-        <div>
-        <h3>Have a Recipe? Submit it!</h3>
-        
+        <div className="searchBar">
         <form id="searchForm"
-        //onSubmit={handleRecipe}
+        onSubmit={handleSearch}
         name="searchForm"
-        //action="/maker"
-        method="POST"
+        action="/allRecipes"
+        method="GET"
         className="searchForm"
         >
             <input id="searchField" type="text" name="search" className="formItem"/>
@@ -47,7 +54,7 @@ const RecipeList = function(props){
     if(props.recipes.length === 0){
         return(
             <div className="recipeContenthor">
-                <h3 className="emptyRecipe" >You haven't uploaded any recipies.</h3>
+                <h3 className="emptyRecipe" >No Recipes</h3>
             </div>
         );
     }  
@@ -61,6 +68,7 @@ const RecipeList = function(props){
         recipeHolder.push(
             <div key={recipe._id} className="recipe">
                 <button className="RecipeBox">
+                    <div>
                     <h4>{recipe.name}</h4>
                     <p><b>Serves:</b>{recipe.serves}</p>
                     <hr />
@@ -69,8 +77,10 @@ const RecipeList = function(props){
                     <hr />
                     <p><b>Instructions</b></p>
                     <p>{recipe.instructions}</p>
+                    </div>
                 </button>
             </div>
+
         );
     
         numElAdded++;
@@ -85,7 +95,6 @@ const RecipeList = function(props){
     
     return (
     <div className="recipeList">
-        <h3>Your Recipes</h3>
         {recipeNodes}
     </div>
     );

@@ -86,9 +86,11 @@ nav:nth-child(1) {
   padding-bottom: 0.25em;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 25em;
   height: 25em;
   text-align: left;
   transition-duration: 0.4s;
+  transition:height .4s;
 }
 
 h4
@@ -99,6 +101,8 @@ h4
 button.RecipeBox:hover
 {
   background-color: white;
+
+  height : auto;
 }
 
   #recipeContentvert
@@ -144,7 +148,7 @@ button.RecipeBox:hover
   
   .button
   {
-    background-color: #4888b3;
+    background-color: #b86161;
     border: none;
     color: white;
     padding: 10px 15px;
@@ -160,7 +164,7 @@ button.RecipeBox:hover
   
   .button:hover
   {
-    background-color: #5DA2D5;
+    background-color: #F78888;
   }
   
   #searchRow
@@ -186,7 +190,7 @@ button.RecipeBox:hover
   position: absolute;
   top: 0%;
   left: 50%;
-  transform:translate(-25%, 0%);
+  transform:translate(-65%, 0%);
 }
 
 #speech {
@@ -206,7 +210,7 @@ button.RecipeBox:hover
 
 .formButton
 {
-  background-color: #4888b3;
+  background-color: #b86161;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -223,10 +227,58 @@ button.RecipeBox:hover
 
 .formButton:hover
 {
-  background-color: #5DA2D5;
+  background-color: #F78888;
+}
+
+.searchForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #sideBySide{
   display:flex;
   justify-content: space-around;
+}
+
+#searchField{
+  width: 50%;
+  height: 3em;
+  margin: 4px 2px;
+  margin-right: .5em;
+}
+
+.mainForm{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  margin: auto;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.vertButton{
+
+  background-color: #b86161;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: auto;
+  cursor: pointer;
+  border-radius: 4px;
+  transition-duration: .4s;
+  width: 14em;
+
+}
+
+.vertItem{
+  margin-bottom: 1em;
+  width: 100%;
+  border: 1px solid black;
+  resize: none;
 }

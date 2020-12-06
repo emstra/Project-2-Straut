@@ -55,7 +55,7 @@ RecipeSchema.statics.toApI = (doc) => ({
 });
 
 RecipeSchema.statics.findByOwner = (ownerID, callback) => {
-  //find recipes by who owns them
+  // find recipes by who owns them
   const search = {
     owner: convertID(ownerID),
   };
@@ -66,7 +66,7 @@ RecipeSchema.statics.findByOwner = (ownerID, callback) => {
 RecipeSchema.statics.findByName = (recName, callback) => {
   // find all recipes containing the search term
   const search = {
-    name : {$regex:`.*${recName}.*`},
+    name: { $regex: new RegExp(`.*${recName}.*`, 'i') }, // `.*${recName}.*`},
     // this regex should make it so that Mongodb matches strings containing the search
   };
 

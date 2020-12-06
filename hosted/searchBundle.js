@@ -1,31 +1,35 @@
 "use strict";
 
-var handleRecipe = function handleRecipe(e) {
-  e.preventDefault();
-  $("#recipeMessage").animate({
-    height: 'hide'
-  }, 350);
+var handleSearch = function handleSearch(e) {
+  e.preventDefault(); //$("#recipeMessage").animate({ height: 'hide' }, 350);
+  //console.log('here');
 
-  if ($("#nameField").val() == '' || $("#servesField").val() == '' || $("#ingredientField").val() == '' || $("#instructionField").val() == '') {
-    handleError("Please fill in all fields.");
-    console.log("err: not all data present");
-    return false;
-  }
-
-  sendAjax('POST', $("#searchForm").attr("action"), $("#searchForm").serialize(), function () {
+  if ($("#searchField").val() == '') {
+    // get all recipes if search bar is empty
     loadRecipesFromServer();
+    return false;
+  } // get all the recipes when the page loads
+
+
+  sendAjax('GET', '/bySearch', $("#searchForm").serialize(), function (data) {
+    //console.log(data.recipes);
+    ReactDOM.render( /*#__PURE__*/React.createElement(RecipeList, {
+      recipes: data.recipes
+    }), document.querySelector('#recipeContentvert'));
   });
   document.querySelector("#searchForm").reset();
   return false;
 };
 
 var SearchForm = function SearchForm(props) {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Have a Recipe? Submit it!"), /*#__PURE__*/React.createElement("form", {
-    id: "searchForm" //onSubmit={handleRecipe}
-    ,
-    name: "searchForm" //action="/maker"
-    ,
-    method: "POST",
+  return /*#__PURE__*/React.createElement("div", {
+    className: "searchBar"
+  }, /*#__PURE__*/React.createElement("form", {
+    id: "searchForm",
+    onSubmit: handleSearch,
+    name: "searchForm",
+    action: "/allRecipes",
+    method: "GET",
     className: "searchForm"
   }, /*#__PURE__*/React.createElement("input", {
     id: "searchField",
@@ -49,7 +53,7 @@ var RecipeList = function RecipeList(props) {
       className: "recipeContenthor"
     }, /*#__PURE__*/React.createElement("h3", {
       className: "emptyRecipe"
-    }, "You haven't uploaded any recipies."));
+    }, "No Recipes"));
   }
 
   var recipeHolder = []; //holds 3 recipes to let them all be added at once
@@ -64,7 +68,7 @@ var RecipeList = function RecipeList(props) {
       className: "recipe"
     }, /*#__PURE__*/React.createElement("button", {
       className: "RecipeBox"
-    }, /*#__PURE__*/React.createElement("h4", null, recipe.name), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "Serves:"), recipe.serves), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "Ingredients")), /*#__PURE__*/React.createElement("p", null, recipe.ingredients), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "Instructions")), /*#__PURE__*/React.createElement("p", null, recipe.instructions))));
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, recipe.name), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "Serves:"), recipe.serves), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "Ingredients")), /*#__PURE__*/React.createElement("p", null, recipe.ingredients), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("b", null, "Instructions")), /*#__PURE__*/React.createElement("p", null, recipe.instructions)))));
     numElAdded++;
 
     if (numElAdded % 3 === 0 || props.recipes.length === numElAdded) {
@@ -78,7 +82,7 @@ var RecipeList = function RecipeList(props) {
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "recipeList"
-  }, /*#__PURE__*/React.createElement("h3", null, "Your Recipes"), recipeNodes);
+  }, recipeNodes);
 };
 
 var loadRecipesFromServer = function loadRecipesFromServer() {
